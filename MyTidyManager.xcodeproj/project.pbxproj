@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		490EAD358FB6B9E7F6093EF3 /* Pods_MyTidyManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A63DE2B06C2FC30F90F9B8CA /* Pods_MyTidyManager.framework */; };
 		88EB4AF71C569E4E003F235A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EB4AF61C569E4E003F235A /* AppDelegate.swift */; };
-		88EB4AF91C569E4E003F235A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88EB4AF81C569E4E003F235A /* ViewController.swift */; };
 		88EB4AFE1C569E4E003F235A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88EB4AFD1C569E4E003F235A /* Assets.xcassets */; };
 		88EB4B011C569E4E003F235A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88EB4AFF1C569E4E003F235A /* LaunchScreen.storyboard */; };
 		88EB4B091C569EE9003F235A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88EB4B081C569EE9003F235A /* Main.storyboard */; };
@@ -28,7 +27,6 @@
 		6D4DC81922B8467719524923 /* Pods-MyTidyManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyTidyManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyTidyManager/Pods-MyTidyManager.release.xcconfig"; sourceTree = "<group>"; };
 		88EB4AF31C569E4E003F235A /* MyTidyManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTidyManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88EB4AF61C569E4E003F235A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		88EB4AF81C569E4E003F235A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		88EB4AFD1C569E4E003F235A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		88EB4B001C569E4E003F235A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		88EB4B021C569E4E003F235A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,17 +92,11 @@
 		88EB4AF51C569E4E003F235A /* MyTidyManager */ = {
 			isa = PBXGroup;
 			children = (
-				88EB4B181C56A1A1003F235A /* RoomListVC.swift */,
+				88EB4B1D1C57369A003F235A /* Model */,
 				88EB4B1A1C56A46D003F235A /* Views */,
-				88EB4B0A1C569F18003F235A /* AddItemScreen.swift */,
-				88EB4B0B1C569F18003F235A /* ItemListVC.swift */,
-				88EB4B0C1C569F18003F235A /* ModelClasses.swift */,
-				88EB4AF61C569E4E003F235A /* AppDelegate.swift */,
-				88EB4B101C56A127003F235A /* PrashUIControls.swift */,
-				88EB4AF81C569E4E003F235A /* ViewController.swift */,
+				88EB4B1B1C57366D003F235A /* Controllers */,
+				88EB4B1C1C573685003F235A /* Misc Files */,
 				88EB4AFD1C569E4E003F235A /* Assets.xcassets */,
-				88EB4AFF1C569E4E003F235A /* LaunchScreen.storyboard */,
-				88EB4B021C569E4E003F235A /* Info.plist */,
 			);
 			path = MyTidyManager;
 			sourceTree = "<group>";
@@ -112,12 +104,41 @@
 		88EB4B1A1C56A46D003F235A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				88EB4B101C56A127003F235A /* PrashUIControls.swift */,
+				88EB4AFF1C569E4E003F235A /* LaunchScreen.storyboard */,
 				88EB4B081C569EE9003F235A /* Main.storyboard */,
 				88EB4B121C56A135003F235A /* PrashCalendarView.xib */,
 				88EB4B131C56A135003F235A /* TestView.xib */,
 				88EB4B141C56A135003F235A /* ChooseFrequencyTitle.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		88EB4B1B1C57366D003F235A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				88EB4B0B1C569F18003F235A /* ItemListVC.swift */,
+				88EB4B0A1C569F18003F235A /* AddItemScreen.swift */,
+				88EB4B181C56A1A1003F235A /* RoomListVC.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		88EB4B1C1C573685003F235A /* Misc Files */ = {
+			isa = PBXGroup;
+			children = (
+				88EB4B021C569E4E003F235A /* Info.plist */,
+				88EB4AF61C569E4E003F235A /* AppDelegate.swift */,
+			);
+			name = "Misc Files";
+			sourceTree = "<group>";
+		};
+		88EB4B1D1C57369A003F235A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				88EB4B0C1C569F18003F235A /* ModelClasses.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,7 +269,6 @@
 				88EB4B111C56A127003F235A /* PrashUIControls.swift in Sources */,
 				88EB4B0D1C569F18003F235A /* AddItemScreen.swift in Sources */,
 				88EB4B0F1C569F18003F235A /* ModelClasses.swift in Sources */,
-				88EB4AF91C569E4E003F235A /* ViewController.swift in Sources */,
 				88EB4AF71C569E4E003F235A /* AppDelegate.swift in Sources */,
 				88EB4B0E1C569F18003F235A /* ItemListVC.swift in Sources */,
 				88EB4B191C56A1A1003F235A /* RoomListVC.swift in Sources */,

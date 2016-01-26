@@ -102,14 +102,8 @@ struct DateCalculator {
         return Day.Sunday
     }
 }
-
 // Class : Item
 class Item {
-    
-    var description : String {
-        return self.name
-    }
-    
     var name : String = ""
     var cleaningFrequency : CleaningFrequency = .OnceDaily
     var cleaningHistory : [CleaningHistory] = []
@@ -137,7 +131,7 @@ class Item {
             
             let theCalendar = NSCalendar.currentCalendar()
             
-            let todayDate = theCalendar.components([.Day], fromDate: NSDate())
+            let todayDate = theCalendar.components([.Day], fromDate: lastCleanedDate!)
             
             if cleaningDates.contains(todayDate.day){ return NSDate() }
             
@@ -157,7 +151,9 @@ class Item {
                 if cleaningDates.contains(aDay){
                     let aCalendar = NSCalendar.currentCalendar()
                     var dateComponenets = NSDateComponents()
-                    dateComponenets = aCalendar.components([.Year,.Month], fromDate: NSDate())
+                    //                    dateComponenets = aCalendar.components([.Year,.Month], fromDate: NSDate())
+                    // FIXME: We wont have a last cleaned day, always, handle this.
+                    dateComponenets = aCalendar.components([.Year,.Month], fromDate: lastCleanedDate!)
                     dateComponenets.day = aDay
                     let theFinalDate = aCalendar.dateFromComponents(dateComponenets)
                     return theFinalDate
@@ -169,7 +165,9 @@ class Item {
                 if cleaningDates.contains(aDay){
                     let aCalendar = NSCalendar.currentCalendar()
                     var dateComponenets = NSDateComponents()
-                    dateComponenets = aCalendar.components([.Year,.Month], fromDate: NSDate())
+                    //                    dateComponenets = aCalendar.components([.Year,.Month], fromDate: NSDate())
+                    // FIXME: We wont have a last cleaned day, always, handle this.
+                    dateComponenets = aCalendar.components([.Year,.Month], fromDate: lastCleanedDate!)
                     dateComponenets.month += 1
                     dateComponenets.day = aDay
                     let theFinalDate = aCalendar.dateFromComponents(dateComponenets)
@@ -198,15 +196,8 @@ class Item {
     }
     
     var itemStatus : Bool {
-        // Check if the
-        if let theLastCleanedDate = lastCleanedDate{
-            //            if theLastCleanedDate.timeIntervalSinceNow {
-            //
-            //            }
-           // NSDate.timeIntervalSinceDate(theLastCleanedDate)
-        }
-        
-        return true
+        // If the Difference between last cleaned date and Current date is greater then cleaning frequency, the Item is overdue.
+        return nextCleaningDueDate?.timeIntervalSinceDate(NSDate()) > 0
     }
 }
 
@@ -309,7 +300,7 @@ class ItemCatalog {
         theItem4.assignedTo = Member(name: "Self")
         theItem4.notes = "This is the Cooking Counter Man"
         theItem4.belongsToRoom = Room()
-        theItem4.lastCleanedDate = NSDate()
+        theItem4.lastCleanedDate = NSDate().dateByAddingTimeInterval(-9999999)
         
         
         let theItemsArrary = [theItem1,theItem2,theItem3,theItem4]

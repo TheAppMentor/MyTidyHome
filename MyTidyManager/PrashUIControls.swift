@@ -34,9 +34,6 @@ class TestView: UIView {
         self.addSubview(theContentView)
         theContentView.backgroundColor = UIColor.redColor()
     }
-    
-    
-
 }
 
 
