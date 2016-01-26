@@ -114,7 +114,18 @@ class ItemListVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIV
         let theItem = ItemCatalog.sharedInstance.allItems()[indexPath.row]
 
             if let theStatusImage = cell.viewWithTag(11) as? UIImageView{
-                let theImageName = theItem.itemStatus ? "greenDone" : "overDue"
+//                let theImageName = theItem.itemStatus ? "greenDone" : "overDue"
+                  var theImageName = "emptyOval"
+                
+                switch theItem.itemStatus{
+                case .Cleaned :
+                    theImageName = "greenDone"
+                case .OverDue :
+                    theImageName = "overDue"
+                default :
+                    theImageName = "emptyOval"
+                }
+                
                 theStatusImage.image = UIImage(named: theImageName)
             }
             
@@ -123,10 +134,16 @@ class ItemListVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIV
             }
             
             if let theItemDueDate = cell.viewWithTag(33) as? UILabel{
-                theItemDueDate.text = theDateFormatter.stringFromDate(theItem.nextCleaningDueDate!)
+                
+                switch theItem.itemStatus{
+                case .Cleaned :
+                    theItemDueDate.text = theDateFormatter.stringFromDate(theItem.nextCleaningDueDate!)
+                case .OverDue(let numberOfDaysOverdue) :
+                    theItemDueDate.text = "\(-1 * numberOfDaysOverdue) days"
+                default :
+                    theItemDueDate.text = ""
+                }
             }
-        
-        
         
         return cell
     }

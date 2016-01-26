@@ -73,31 +73,11 @@ class AddItemVC: UIViewController,UITextFieldDelegate,UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.toolbarHidden = true
+        //self.navigationController?.toolbarHidden = true
     }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
-    }
-    
-    
-    @IBAction func addRoomToDB(sender: UIButton) {
-        print("Now we will add the Room to DB")
-        
-        var theDictionaryRoomData : [String:AnyObject] = Dictionary()
-        
-        theDictionaryRoomData["RoomName"]               = theRoomName
-        theDictionaryRoomData["RoomCleaningFrequency"]  = theFrequencyChosen
-        theDictionaryRoomData["RoomCleaningDaysorDates"] = theFrequencyItemsChosen
-        theDictionaryRoomData["RoomCleaningSubTasks"]   = []
-        
-//        if coreDataHandler().createNewRoom(theDictionaryRoomData){
-//            print("Room was added successfully")
-//            print(coreDataHandler().getAllEntities())
-//            
-//            let theApplicaitonDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-//            theApplicaitonDelegate.saveContext()
-//        }
     }
     
     
@@ -106,8 +86,22 @@ class AddItemVC: UIViewController,UITextFieldDelegate,UITextViewDelegate {
 
         let newItem = Item()
         newItem.name = theTextFieldItemTitle.text!
-        newItem.lastCleanedDate = NSDate()
+        newItem.lastCleanedDate = nil
+        
+        switch self.theFrequencyChosen {
+        case "Daily" :
+            CleaningFrequency.OnceDaily
+        case "OnceWeekly" :
+            CleaningFrequency.OnceWeekly
+        case "OnceMonthly" :
+            CleaningFrequency.OnceMonthly
+        default :
+            print("Some Error Man.")
+        }
+        
         newItem.cleaningFrequency = .OnceDaily
+        newItem.assignedTo = Member()
+
         if ItemCatalog.sharedInstance.addNewItem(newItem){
             self.dismissViewControllerAnimated(true, completion: { () -> Void in
                 print("Item added Successfully")            
@@ -286,6 +280,10 @@ class AddItemVC: UIViewController,UITextFieldDelegate,UITextViewDelegate {
     func dismissFreqView() -> (){
         // Look at all the buttons in WeekList or Month List and look at which days are pickec.
         
+        if theFrequencyChosen == "Daily"{
+         self.theFrequencyChosen = "Daily"
+        }
+        
         if theFrequencyChosen == "Weekly"{
             for theViews in theDaysOfWeekStack.arrangedSubviews{
                 if let aButton = theViews as? roundButton{
@@ -362,6 +360,18 @@ class AddItemVC: UIViewController,UITextFieldDelegate,UITextViewDelegate {
         self.dismissViewControllerAnimated(true) { () -> Void in
             print("Dismissing without adding an Item")
         }
+    }
+    
+    
+    // Text Field Validation
+    func validateItemName(theItemName : String?) -> Bool{
+        if let aItemName = theItemName {
+            guard !(aItemName.isEmpty) else {return false}
+            guard !(aItemName == "Item Name") else {return false}
+            return true
+        }
+        
+        return false
     }
     
     

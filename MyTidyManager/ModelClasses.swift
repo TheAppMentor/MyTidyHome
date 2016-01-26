@@ -60,11 +60,12 @@ enum CleaningFrequency {
     case OnSpecificDates (cleaningDates : [Int])
 }
 
-enum CleaningStatus {
-    case Cleaned (lastCleanedDate : NSDate)
-    case Overdue (lastCleanedDate : NSDate)
-    case Deleted (onDate : NSDate)
+enum ItemStatus{
+    case Cleaned (theNextDueDate : NSDate)
+    case OverDue (theDaysOverDue : Int)
+    case Unknown
 }
+
 
 struct CleaningHistory {
     var cleanedDate : NSDate
@@ -195,9 +196,18 @@ class Item {
         return nil
     }
     
-    var itemStatus : Bool {
-        // If the Difference between last cleaned date and Current date is greater then cleaning frequency, the Item is overdue.
-        return nextCleaningDueDate?.timeIntervalSinceDate(NSDate()) > 0
+    var itemStatus : ItemStatus {
+        
+        if nextCleaningDueDate?.timeIntervalSinceDate(NSDate()) >= Double(0){
+            return ItemStatus.Cleaned(theNextDueDate: nextCleaningDueDate!)
+        }
+        
+        if nextCleaningDueDate?.timeIntervalSinceDate(NSDate()) < 0{
+            // Calculate Number of days its Overdue.
+            let theDays = (nextCleaningDueDate?.timeIntervalSinceDate(NSDate()))!/Double(24 * 60 * 60)
+            return ItemStatus.OverDue(theDaysOverDue: Int(theDays))
+        }
+        return ItemStatus.Unknown
     }
 }
 
@@ -206,6 +216,39 @@ class Room {
     var itemList : [Item]?
 }
 
+
+class RoomCatalog{
+    
+    static let sharedInstance = RoomCatalog()
+    
+    var roomList : [Room] = []
+    
+    
+    var dataHasChanged : Bool = false {
+        didSet{
+            if dataHasChanged == true{
+                dataHasChanged = false
+                NSNotificationCenter.defaultCenter().postNotificationName("DataHasChanged", object: nil)
+            }
+        }
+    }
+
+    
+    func removeAllItems(){
+        
+    }
+    
+    
+    func addItemToRoom(theItem : Item) -> Bool{
+    
+    return true
+    }
+    
+    func removeItemFromRoom(theItem : Item) -> Bool{
+        
+        return true
+    }
+}
 
 
 
