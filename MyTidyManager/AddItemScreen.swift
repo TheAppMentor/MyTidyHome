@@ -131,9 +131,6 @@ class AddItemVC: UIViewController,UITextFieldDelegate,UITextViewDelegate {
         
         theChooseFrequencyTitle.theCloseButton.addTarget(self, action: "dismissFreqView", forControlEvents: UIControlEvents.TouchUpInside)
         
-        
-        //        theChooseFrequencyTitle = UIView(frame: CGRectMake(0, 0, theChooseFrequencyView.frame.width, theChooseFrequencyView.frame.height/5))
-        
         theChooseFrequencyView.addSubview(theChooseFrequencyTitle)
         
         // Add Daily Monthly Weekly Frequency Button
@@ -151,16 +148,13 @@ class AddItemVC: UIViewController,UITextFieldDelegate,UITextViewDelegate {
         
         weeklyButton = UIButton(frame: CGRectMake(0, 100, theChooseFrequencyView.frame.width/3, theChooseFrequencyView.frame.height/5))
         weeklyButton.backgroundColor = thePurpleColor
-        weeklyButton.setTitle("Weekly", forState: .Normal)
-        weeklyButton.addTarget(self, action:"showDailyList:", forControlEvents:UIControlEvents.TouchUpInside)
+        weeklyButton.setTitle("Select Days", forState: .Normal)
         weeklyButton.titleLabel?.font = theFont
         
         monthlyButton = UIButton(frame: CGRectMake(0, 100, theChooseFrequencyView.frame.width/3, theChooseFrequencyView.frame.height/5))
         monthlyButton.backgroundColor = thePurpleColor
-        monthlyButton.setTitle("Monthly", forState: .Normal)
+        monthlyButton.setTitle("Select Dates", forState: .Normal)
         monthlyButton.titleLabel?.font = theFont
-        monthlyButton.addTarget(self, action:"showCalendar:", forControlEvents:UIControlEvents.TouchUpInside)
-        
         
         chooseFrequencyButtonStack.addArrangedSubview(dailyButton)
         chooseFrequencyButtonStack.addArrangedSubview(weeklyButton)
@@ -374,6 +368,33 @@ class AddItemVC: UIViewController,UITextFieldDelegate,UITextViewDelegate {
         return false
     }
     
+    
+    
+    func makeCustomDatesView() -> UIStackView{
+        // Create a Choose Frequency StackView
+        chooseFrequencyButtonStack = UIStackView(frame: CGRectMake(1, (theChooseFrequencyTitle.frame.origin.y + theChooseFrequencyTitle.frame.height + 1), (theChooseFrequencyView.frame.width - 2) , theChooseFrequencyTitle.frame.height))
+        chooseFrequencyButtonStack.axis = UILayoutConstraintAxis.Horizontal
+        chooseFrequencyButtonStack.distribution = UIStackViewDistribution.FillEqually
+        chooseFrequencyButtonStack.spacing = 1
+        
+        let selectDaysButton = UIButton(frame: CGRectMake(0, 100, theChooseFrequencyView.frame.width/2, theChooseFrequencyView.frame.height/5))
+        selectDaysButton.backgroundColor = thePurpleColor
+        selectDaysButton.setTitle("Select Days", forState: .Normal)
+        selectDaysButton.addTarget(self, action:"showDailyList:", forControlEvents:UIControlEvents.TouchUpInside)
+        selectDaysButton.titleLabel?.font = theFont
+        
+        let selectDatesButton = UIButton(frame: CGRectMake(0, 100, theChooseFrequencyView.frame.width/2, theChooseFrequencyView.frame.height/5))
+        selectDatesButton.backgroundColor = thePurpleColor
+        selectDatesButton.setTitle("Select Dates", forState: .Normal)
+        selectDatesButton.titleLabel?.font = theFont
+        selectDatesButton.addTarget(self, action:"showCalendar:", forControlEvents:UIControlEvents.TouchUpInside)
+        
+        chooseFrequencyButtonStack.addArrangedSubview(selectDaysButton)
+        chooseFrequencyButtonStack.addArrangedSubview(selectDatesButton)
+    
+    
+        return chooseFrequencyButtonStack
+    }
     
 }
 
